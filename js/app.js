@@ -41,7 +41,6 @@ function init() {
  * which will be called after everything has run successfully.
  */
 function loadFeed(id, cb) {
-    console.log("I am loading feed: " + id);
     var feedUrl = allFeeds[id].url,
         feedName = allFeeds[id].name,
         feed = new google.feeds.Feed(feedUrl);
@@ -79,7 +78,6 @@ function loadFeed(id, cb) {
             cb();
         }
     });
-    console.log("I am finished loading feed: " + id);
 }
 
 /* Google API: Loads the Feed Reader API and defines what function

@@ -95,7 +95,7 @@ $(function () {
         beforeEach(function (done) {
             setTimeout(function () {
                 done();
-            }, 500);
+            }, 200);
         })
 
         it('feed entries', function () {
@@ -114,38 +114,27 @@ $(function () {
          */
 
         //sample arrays to store entries
-        var feedEntriesA = [];
-        var feedEntriesB = [];
-        /*
-        beforeEach(function () {
-            setTimeout(function () {
-                //store first sample
-                console.log("storing feed 0");
-                feedEntriesA = document.getElementsByClassName("entry");
-            }, 500);
-        });
-        */
-        //get second sample after a longer delay
+        var testEntryA = [];
+        var testEntryB = [];
+
         beforeEach(function (done) {
-            //loadFeed(1);
+            //load another feed
+            loadFeed(1);
             setTimeout(function () {
+                //store sample after adequate delay
+                testEntryB = document.getElementsByClassName("entry")[0].outerText;
                 //set back to initial feed and store sample
-                console.log("storing feed 0");
-                feedEntriesB = document.getElementsByClassName("entry");
-                loadFeed(1);
+                loadFeed(0);
                 setTimeout(function () {
-                    //store first sample
-                    console.log("storing feed 1");
-                    feedEntriesA = document.getElementsByClassName("entry");
+                    //get second sample after another delay
+                    testEntryA = document.getElementsByClassName("entry")[0].outerText;
+                    //run the test
                     done();
-                }, 1000);
-            }, 1000);
+                }, 200);
+            }, 200);
         });
 
         it('feed entry changed', function () {
-            console.log("running test");
-            var testEntryA = feedEntriesA[0].outerText;
-            var testEntryB = feedEntriesB[0].outerText;
             expect(testEntryA).not.toBe(testEntryB);
         });
     });
