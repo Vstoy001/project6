@@ -95,15 +95,14 @@ $(function () {
         beforeEach(function (done) {
             setTimeout(function () {
                 done();
-            }, 1000);
+            }, 500);
         })
 
-        it('feed entries', function (done) {
+        it('feed entries', function () {
             var feed = document.getElementsByClassName("feed");
             var feedEntry = document.getElementsByClassName("entry");
             expect(feed.length).toBeGreaterThan(0);
             expect(feedEntry.length).toBeGreaterThan(0);
-            done();
         });
     });
 
@@ -113,33 +112,41 @@ $(function () {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        beforeEach(function (done) {
-            setTimeout(function () {
-                done();
-            }, 1000);
-        })
 
-        it('feed entry changed', function (done) {
-            var feedEntry = document.getElementsByClassName("entry");
-            console.log(feedEntry);
-            var testEntryA = feedEntry[0].outerText;
-            console.log(testEntryA);
-            //load a different feed
-            //loadFeed(1);
-            feedEntry = document.getElementsByClassName("entry");
-            console.log(feedEntry);
-            var testEntryB = feedEntry[0].outerText;
-            console.log(testEntryB);
-            //go back to first feed
-            //loadFeed(0);
-            
-            var list = $('.feed-list-item');
-            //simulate click
-            list.click();
-            
-            expect(feedEntry.length).toBeGreaterThan(0);
-            done();
+        //sample arrays to store entries
+        var feedEntriesA = [];
+        var feedEntriesB = [];
+        /*
+        beforeEach(function () {
+            setTimeout(function () {
+                //store first sample
+                console.log("storing feed 0");
+                feedEntriesA = document.getElementsByClassName("entry");
+            }, 500);
         });
-        
+        */
+        //get second sample after a longer delay
+        beforeEach(function (done) {
+            //loadFeed(1);
+            setTimeout(function () {
+                //set back to initial feed and store sample
+                console.log("storing feed 0");
+                feedEntriesB = document.getElementsByClassName("entry");
+                loadFeed(1);
+                setTimeout(function () {
+                    //store first sample
+                    console.log("storing feed 1");
+                    feedEntriesA = document.getElementsByClassName("entry");
+                    done();
+                }, 1000);
+            }, 1000);
+        });
+
+        it('feed entry changed', function () {
+            console.log("running test");
+            var testEntryA = feedEntriesA[0].outerText;
+            var testEntryB = feedEntriesB[0].outerText;
+            expect(testEntryA).not.toBe(testEntryB);
+        });
     });
 }());

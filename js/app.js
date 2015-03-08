@@ -79,6 +79,7 @@ function loadFeed(id, cb) {
             cb();
         }
     });
+    console.log("I am finished loading feed: " + id);
 }
 
 /* Google API: Loads the Feed Reader API and defines what function
