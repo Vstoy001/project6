@@ -55,17 +55,19 @@ $(function () {
 
     /* Test suite named "The menu" */
     describe('The Menu', function () {
+        
         /* Test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+        
+        //variable for button
+        var icon = $('.menu-icon-link');
+
         it('menu hidden', function () {
-            var checkFor = document.getElementsByClassName("menu-hidden");
-            expect(checkFor.length).toBeGreaterThan(0);
-            //var body = document.body;
-            //console.log(body);
-            //$('body').hasClass("menu-hidden").toBe(true);
+            //check for class
+            expect($('body').hasClass("menu-hidden")).toBe(true);
         });
 
         /* Test that ensures the menu changes
@@ -74,17 +76,14 @@ $(function () {
          * clicked and does it hide when clicked again.
          */
         it('menu display', function () {
-            var icon = $('.menu-icon-link');
             //simulate click
             icon.click();
-            //check for tag
-            var elem = document.getElementsByClassName("menu-hidden");
-            expect(elem.length).toBeLessThan(1);
+            //check for class
+            expect($('body').hasClass("menu-hidden")).toBe(false);
             //simulate click
             icon.click();
-            //check for tag
-            elem = document.getElementsByClassName("menu-hidden");
-            expect(elem.length).toBeGreaterThan(0);
+            //check for class
+            expect($('body').hasClass("menu-hidden")).toBe(true);
         });
     });
 
